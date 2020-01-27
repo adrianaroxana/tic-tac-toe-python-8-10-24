@@ -38,7 +38,11 @@ def get_ai_move(board, player):
 
 def mark(board, player, row, col):
     """Marks the element at row & col on the board for player."""
-    pass
+    try:
+        if board[row][col] == 0:
+            board[row][col] = player
+    except IndexError:
+        return
 
 
 def has_won(board, player):
