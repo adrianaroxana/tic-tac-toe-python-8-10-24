@@ -5,6 +5,11 @@ def init_board():
 
 
 def get_move(board, player):
+    valid_moves = ['a1', 'a2', 'a3', 'b1', 'b2', 'b3', 'c1', 'c2', 'c3']
+    move = input('Make your move: ')
+    if move.lower() not in valid_moves:
+        print('Not a valid move!')
+        get_move(board, player)
     """Returns the coordinates of a valid move for player on board."""
     row, col = 0, 0
     return row, col
