@@ -5,14 +5,29 @@ def init_board():
 
 
 def get_move(board, player):
+    """Returns the coordinates of a valid move for player on board."""
+
     valid_moves = ['a1', 'a2', 'a3', 'b1', 'b2', 'b3', 'c1', 'c2', 'c3']
     move = input('Make your move: ')
     if move.lower() not in valid_moves:
         print('Not a valid move!')
         get_move(board, player)
-    """Returns the coordinates of a valid move for player on board."""
-    row, col = 0, 0
-    return row, col
+    if 'a' in move.lower():
+        row = 0
+    elif 'b' in move.lower():
+        row = 1
+    elif 'c' in move.lower():
+        row = 2
+    if '1' in move.lower():
+        col = 0
+    elif '2' in move.lower():
+        col = 1
+    elif '3' in move.lower():
+        col = 2
+    if board[row][col] != 0:
+        print('Place already taken')
+        get_move(board, player)
+    return (row, col)
 
 
 def get_ai_move(board, player):
