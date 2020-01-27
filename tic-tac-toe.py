@@ -47,17 +47,24 @@ def mark(board, player, row, col):
 
 def has_won(board, player):
     """Returns True if player has won the game."""
-    if (board[0][0] == board[0][1] == board[0][2] or board[1][0] == board[1][1] == board[1][2] or
-        board[2][0] == board[2][1] == board[2][2] or board[0][0] == board[1][0] == board[2][0] or
-        board[0][1] == board[1][1] == board[2][1] or board[0][2] == board[1][2] == board[2][2] or
-            board[0][0] == board[1][1] == board[2][2] or board[0][2] == board[1][1] == board[2][0]):
+    if (board[0][0] == board[0][1] == board[0][2] == player or board[1][0] == board[1][1] == board[1][2] == player or
+        board[2][0] == board[2][1] == board[2][2] == player or board[0][0] == board[1][0] == board[2][0] == player or
+        board[0][1] == board[1][1] == board[2][1] == player or board[0][2] == board[1][2] == board[2][2] == player or
+            board[0][0] == board[1][1] == board[2][2] == player or board[0][2] == board[1][1] == board[2][0] == player):
         return True
     return False
 
 
 def is_full(board):
     """Returns True if board is full."""
-    return False
+    if 0 in board[0]:
+        return False
+    elif 0 in board[1]:
+        return False
+    elif 0 in board[2]:
+        return False
+    else:
+        return True
 
 
 def print_board(board):
@@ -88,3 +95,16 @@ def main_menu():
 
 if __name__ == '__main__':
     main_menu()
+    '''
+    Test
+    board1 = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
+    board2 = [[1, 2, 1], [1, 2, 2], [1, 2, 2]]
+    print(is_full(board1))
+    print('...........')
+    print(is_full(board2))
+    print('...........')
+    print(has_won(board1, 1))
+    print('...........')
+    print(has_won(board2, 2))
+    print('...........')
+    '''
