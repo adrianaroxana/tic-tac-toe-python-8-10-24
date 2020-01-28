@@ -95,7 +95,12 @@ def print_board(board):
 
 def print_result(winner):
     """Congratulates winner or proclaims tie (if winner equals zero)."""
-    pass
+    if winner == 0:
+        print("It's a tie!")
+    if winner == 1:
+        print('X won!')
+    if winner == 2:
+        print('O won!')
 
 
 def tictactoe_game(mode='HUMAN-HUMAN'):
@@ -109,7 +114,7 @@ def tictactoe_game(mode='HUMAN-HUMAN'):
         mark(board, 1, row, col)
         os.system('clear')
         print_board(board)
-        if not has_won(board, 1):
+        if not has_won(board, 1) and not is_full(board):
             row, col = get_move(board, 2)
             mark(board, 2, row, col)
             print_board(board)
@@ -120,8 +125,6 @@ def tictactoe_game(mode='HUMAN-HUMAN'):
         winner = 2
     else:
         winner = 0
-
-    winner = 0
     print_result(winner)
 
 
