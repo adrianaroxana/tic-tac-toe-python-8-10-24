@@ -1,3 +1,6 @@
+import os
+
+
 def init_board():
     """Returns an empty 3-by-3 board (with zeros)."""
     board = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
@@ -6,12 +9,13 @@ def init_board():
 
 def get_move(board, player):
     """Returns the coordinates of a valid move for player on board."""
-
+    row = 3
+    col = 3
     valid_moves = ['a1', 'a2', 'a3', 'b1', 'b2', 'b3', 'c1', 'c2', 'c3']
     move = input('Make your move: ')
     if move.lower() not in valid_moves:
         print('Not a valid move!')
-        get_move(board, player)
+        return get_move(board, player)
     if 'a' in move.lower():
         row = 0
     elif 'b' in move.lower():
@@ -26,7 +30,7 @@ def get_move(board, player):
         col = 2
     if board[row][col] != 0:
         print('Place already taken')
-        get_move(board, player)
+        return get_move(board, player)
     return (row, col)
 
 
@@ -69,7 +73,24 @@ def is_full(board):
 
 def print_board(board):
     """Prints a 3-by-3 board on the screen with borders."""
-    pass
+    newboard = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
+    for x in range(len(board)):
+        for i in range(len(board[0])):
+            if board[x][i] == 0:
+                newboard[x][i] = '.'
+            if board[x][i] == 1:
+                newboard[x][i] = 'X'
+            if board[x][i] == 2:
+                newboard[x][i] = 'O'
+    print('''
+               1   2   3
+            A  {} | {} | {}
+              ---+---+---
+            B  {} | {} | {}
+              ---+---+---
+            C  {} | {} | {}
+        '''.format(newboard[0][0], newboard[0][1], newboard[0][2], newboard[1][0], newboard[1][1], newboard[1][2],
+                   newboard[2][0], newboard[2][1], newboard[2][2]))
 
 
 def print_result(winner):
@@ -81,9 +102,17 @@ def tictactoe_game(mode='HUMAN-HUMAN'):
     board = init_board()
 
     # use get_move(), mark(), has_won(), is_full(), and print_board() to create game logic
-    print_board(board)
-    row, col = get_move(board, 1)
-    mark(board, 1, row, col)
+    while not has_won(board, 1) and not has_won(board, 2) and not is_full(board):
+        os.system('cls')
+        print_board(board)
+        row, col = get_move(board, 1)
+        mark(board, 1, row, col)
+        os.system('cls')
+        print_board(board)
+        if not has_won(board, 1):
+            row, col = get_move(board, 2)
+            mark(board, 2, row, col)
+            print_board(board)
 
     winner = 0
     print_result(winner)
@@ -95,16 +124,3 @@ def main_menu():
 
 if __name__ == '__main__':
     main_menu()
-    '''
-    Test
-    board1 = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
-    board2 = [[1, 2, 1], [1, 2, 2], [1, 2, 2]]
-    print(is_full(board1))
-    print('...........')
-    print(is_full(board2))
-    print('...........')
-    print(has_won(board1, 1))
-    print('...........')
-    print(has_won(board2, 2))
-    print('...........')
-    '''
