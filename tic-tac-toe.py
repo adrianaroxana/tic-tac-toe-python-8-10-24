@@ -103,16 +103,23 @@ def tictactoe_game(mode='HUMAN-HUMAN'):
 
     # use get_move(), mark(), has_won(), is_full(), and print_board() to create game logic
     while not has_won(board, 1) and not has_won(board, 2) and not is_full(board):
-        os.system('cls')
+        os.system('clear')
         print_board(board)
         row, col = get_move(board, 1)
         mark(board, 1, row, col)
-        os.system('cls')
+        os.system('clear')
         print_board(board)
         if not has_won(board, 1):
             row, col = get_move(board, 2)
             mark(board, 2, row, col)
             print_board(board)
+
+    if has_won(board, 1):
+        winner = 1
+    elif has_won(board, 2):
+        winner = 2
+    else:
+        winner = 0
 
     winner = 0
     print_result(winner)
