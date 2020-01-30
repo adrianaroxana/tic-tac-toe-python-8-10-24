@@ -1,5 +1,6 @@
 import os
 import random
+import time
 
 
 def init_board():
@@ -225,9 +226,46 @@ def tictactoe_game(mode='HUMAN-HUMAN'):
             winner = 0
         print_result(winner)
     elif mode == 'AI-HUMAN':
-        pass
+        board = init_board()
+        while not has_won(board, 1) and not has_won(board, 2) and not is_full(board):
+            row, col = get_ai_move(board, 2)
+            mark(board, 1, row, col)
+            os.system('cls')
+            print_board(board)
+            if not has_won(board, 1) and not is_full(board):
+                row, col = get_move(board, 1)
+                mark(board, 2, row, col)
+                os.system('cls')
+                print_board(board)
+        if has_won(board, 1):
+            winner = 1
+        elif has_won(board, 2):
+            winner = 2
+        else:
+            winner = 0
+        print_result(winner)
+
     elif mode == 'AI-AI':
-        pass
+        board = init_board()
+        while not has_won(board, 1) and not has_won(board, 2) and not is_full(board):
+            row, col = get_ai_move(board, 2)
+            mark(board, 1, row, col)
+            os.system('cls')
+            print_board(board)
+            time.sleep(2)
+            if not has_won(board, 1) and not is_full(board):
+                row, col = get_ai_move(board, 2)
+                mark(board, 2, row, col)
+                os.system('cls')
+                print_board(board)
+                time.sleep(2)
+        if has_won(board, 1):
+            winner = 1
+        elif has_won(board, 2):
+            winner = 2
+        else:
+            winner = 0
+        print_result(winner)
 
 
 def main_menu():
