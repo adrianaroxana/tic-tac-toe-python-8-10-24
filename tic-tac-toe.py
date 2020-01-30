@@ -24,11 +24,11 @@ def get_move(board, player):
         row = 1
     elif 'c' in move.lower():
         row = 2
-    if '1' in move.lower():
+    if '1' in move:
         col = 0
-    elif '2' in move.lower():
+    elif '2' in move:
         col = 1
-    elif '3' in move.lower():
+    elif '3' in move:
         col = 2
     if board[row][col] != 0:
         print('Place already taken')
@@ -213,7 +213,7 @@ def tictactoe_game(mode='HUMAN-HUMAN'):
                 quit()
             else:
                 action = input('Play again?')
-        
+
     elif mode == 'HUMAN-AI':
         board = init_board()
         while not has_won(board, 1) and not has_won(board, 2) and not is_full(board):
