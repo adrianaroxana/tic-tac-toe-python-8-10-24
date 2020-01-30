@@ -4,18 +4,18 @@ import time
 
 
 def init_board():
-    """Returns an empty 3-by-3 board (with zeros)."""
     board = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
     return board
 
 
 def get_move(board, player):
-    """Returns the coordinates of a valid move for player on board."""
     row = 3
     col = 3
     valid_moves = ['a1', 'a2', 'a3', 'b1', 'b2', 'b3', 'c1', 'c2', 'c3']
     move = input('Make your move: ')
-    if move.lower() not in valid_moves:
+    if move.lower() == 'quit':
+        quit()
+    elif move.lower() not in valid_moves:
         print('Not a valid move!')
         return get_move(board, player)
     if 'a' in move.lower():
@@ -37,7 +37,7 @@ def get_move(board, player):
 
 
 def get_ai_move(board, player):
-    '''Returns the coordinates of a valid move for player on board.
+    '''
     row = random.randint(0, 2)
     col = random.randint(0, 2)
     while board[row][col] != 0:
@@ -119,7 +119,6 @@ def get_ai_move(board, player):
 
 
 def mark(board, player, row, col):
-    """Marks the element at row & col on the board for player."""
     try:
         if board[row][col] == 0:
             board[row][col] = player
@@ -128,7 +127,6 @@ def mark(board, player, row, col):
 
 
 def has_won(board, player):
-    """Returns True if player has won the game."""
     if (board[0][0] == board[0][1] == board[0][2] == player or board[1][0] == board[1][1] == board[1][2] == player or
         board[2][0] == board[2][1] == board[2][2] == player or board[0][0] == board[1][0] == board[2][0] == player or
         board[0][1] == board[1][1] == board[2][1] == player or board[0][2] == board[1][2] == board[2][2] == player or
@@ -138,7 +136,6 @@ def has_won(board, player):
 
 
 def is_full(board):
-    """Returns True if board is full."""
     if 0 in board[0]:
         return False
     elif 0 in board[1]:
@@ -172,13 +169,12 @@ def print_board(board):
 
 
 def print_result(winner):
-    """Congratulates winner or proclaims tie (if winner equals zero)."""
     if winner == 0:
-        print("It's a tie!")
+        print("It's a tie! \n")
     if winner == 1:
-        print('X won!')
+        print('X won! \n')
     if winner == 2:
-        print('O won!')
+        print('O won! \n')
 
 
 def tictactoe_game(mode='HUMAN-HUMAN'):
@@ -203,6 +199,21 @@ def tictactoe_game(mode='HUMAN-HUMAN'):
         else:
             winner = 0
         print_result(winner)
+
+        print('1.Play again')
+        print('2.Menu')
+        print('3.Quit')
+        action = input('Play again?')
+        while action != '1' or action != '2' or action != '3':
+            if action == '1':
+                tictactoe_game()
+            elif action == '2':
+                main_menu()
+            elif action == '3':
+                quit()
+            else:
+                action = input('Play again?')
+        
     elif mode == 'HUMAN-AI':
         board = init_board()
         while not has_won(board, 1) and not has_won(board, 2) and not is_full(board):
@@ -225,6 +236,19 @@ def tictactoe_game(mode='HUMAN-HUMAN'):
         else:
             winner = 0
         print_result(winner)
+        print('1.Play again')
+        print('2.Menu')
+        print('3.Quit')
+        action = input('Play again?')
+        while action != '1' or action != '2' or action != '3':
+            if action == '1':
+                tictactoe_game('HUMAN-AI')
+            elif action == '2':
+                main_menu()
+            elif action == '3':
+                quit()
+            else:
+                action = input('Play again?')
     elif mode == 'AI-HUMAN':
         board = init_board()
         while not has_won(board, 1) and not has_won(board, 2) and not is_full(board):
@@ -244,6 +268,19 @@ def tictactoe_game(mode='HUMAN-HUMAN'):
         else:
             winner = 0
         print_result(winner)
+        print('1.Play again')
+        print('2.Menu')
+        print('3.Quit')
+        action = input('Play again?')
+        while action != '1' or action != '2' or action != '3':
+            if action == '1':
+                tictactoe_game('AI-HUMAN')
+            elif action == '2':
+                main_menu()
+            elif action == '3':
+                quit()
+            else:
+                action = input('Play again?')
 
     elif mode == 'AI-AI':
         board = init_board()
@@ -266,15 +303,23 @@ def tictactoe_game(mode='HUMAN-HUMAN'):
         else:
             winner = 0
         print_result(winner)
+        print('1.Play again')
+        print('2.Menu')
+        print('3.Quit')
+        action = input('Play again?')
+        while action != '1' or action != '2' or action != '3':
+            if action == '1':
+                tictactoe_game('AI-AI')
+            elif action == '2':
+                main_menu()
+            elif action == '3':
+                quit()
+            else:
+                action = input('Play again?')
 
 
 def main_menu():
-    '''
-    board = [[2, 2, 2],
-             [2, 0, 0],
-             [2, 2, 2]]
-    get_ai_move(board, 2)
-    '''
+    os.system('cls')
     print('''
       ________________   _________   ______   __________  ______
      /_  __/  _/ ____/  /_  __/   | / ____/  /_  __/ __ \/ ____/
@@ -287,7 +332,9 @@ def main_menu():
     print('3.AI-HUMAN')
     print('4.AI-AI')
     select = input('Choose game mode!')
-    if select == str(1):
+    if select == 'quit':
+        quit()
+    elif select == str(1):
         tictactoe_game('HUMAN-HUMAN')
     elif select == str(2):
         tictactoe_game('HUMAN-AI')
