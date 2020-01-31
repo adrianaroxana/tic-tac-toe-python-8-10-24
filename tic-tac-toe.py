@@ -199,26 +199,7 @@ def tictactoe_game(mode='HUMAN-HUMAN'):
         else:
             winner = 0
         print_result(winner)
-
-<<<<<<< HEAD
         after_menu()
-        
-=======
-        print('1.Play again')
-        print('2.Menu')
-        print('3.Quit')
-        action = input('Play again?')
-        while action != '1' or action != '2' or action != '3':
-            if action == '1':
-                tictactoe_game()
-            elif action == '2':
-                main_menu()
-            elif action == '3':
-                quit()
-            else:
-                action = input('Play again?')
-
->>>>>>> bdd7f3b1f5def54641074a37923852e5c6a0b82e
     elif mode == 'HUMAN-AI':
         board = init_board()
         while not has_won(board, 1) and not has_won(board, 2) and not is_full(board):
@@ -301,6 +282,7 @@ def after_menu():
             quit()
         else:
             action = input('Play again?')
+
 
 def main_menu():
     os.system('cls')
